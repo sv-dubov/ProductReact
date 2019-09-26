@@ -5,6 +5,7 @@ import 'font-awesome/css/font-awesome.min.css';
 import './bootspricing.css';
 import './App.css';
 
+import Create from './components/crud/create';
 import EclipseWidget from './components/eclipse';
 
 
@@ -26,6 +27,7 @@ class App extends React.Component {
     );
     console.log("------click button-------");
   }
+
   render() {
     const {loading}= this.state;
     console.log("--Reander app state--", this.state);
@@ -46,7 +48,7 @@ class App extends React.Component {
             <p>
               <img key={product.id} src={product.image} alt="" />
             </p>
-            <button type="button" className="btn btn-lg btn-block btn-primary">Купити</button>
+            <button type="button" className="btn btn-lg btn-primary">Купити</button>
           </div>
         </div>
     );
@@ -56,8 +58,14 @@ class App extends React.Component {
         <div className="container">
           <h1>Вітаємо в нашому магазині</h1>
           <p>
-            <button type="button" className="btn btn-lg btn-block btn-info" onClick={this.getListDataHandler}>Список продуктів</button>
+            <button type="button" className="btn btn-lg btn-info" onClick={this.getListDataHandler}>Список продуктів</button>
           </p>
+          <React.Fragment>
+            {<Create />}
+            <p>
+              <button type="button" className="btn btn-lg btn-info ">Додати продукт</button>
+            </p>
+          </React.Fragment>
           <div className="card-deck mb-3 text-center" style={{ overflow: "hidden" }}>
             {todoItems}
           </div>
