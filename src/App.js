@@ -60,15 +60,12 @@ class App extends React.Component {
           <p>
             <button type="button" className="btn btn-lg btn-info" onClick={this.getListDataHandler}>Список продуктів</button>
           </p>
-          <React.Fragment>
-            {<Create />}
-            <p>
-              <button type="button" className="btn btn-lg btn-info ">Додати продукт</button>
-            </p>
-          </React.Fragment>
           <div className="card-deck mb-3 text-center" style={{ overflow: "hidden" }}>
             {todoItems}
           </div>
+          <React.Fragment>
+            {<Create />}
+          </React.Fragment>
         </div>
       </React.Fragment>
     );
