@@ -12,7 +12,19 @@ import EclipseWidget from './components/eclipse';
 class App extends React.Component {
   state = {
     products: [],
-    loading: false
+    loading: false,
+    categoriesSelect: []
+  }
+
+  componentDidMount() {
+    const urlCategories='https://localhost:44330/api/categories';
+    this.setState({loading: true});
+    axios.get(urlCategories).then(
+      (resp) => { 
+        console.log('-----axios res-----', resp);
+        this.setState({categoriesSelect: resp.data, loading: false});
+      }
+    );
   }
 
   getListDataHandler = (e) => {
@@ -25,11 +37,10 @@ class App extends React.Component {
         this.setState({ products: resp.data, loading: false });
       }
     );
-    console.log("------click button-------");
   }
 
   render() {
-    const {loading}= this.state;
+    const {loading, categoriesSelect} = this.state;
     console.log("--Reander app state--", this.state);
     const todoItems = this.state.products.map((product) =>
         <div className="card mb-4 box-shadow">
@@ -49,6 +60,9 @@ class App extends React.Component {
               <img key={product.id} src={product.image} alt="" />
             </p>
             <button type="button" className="btn btn-lg btn-primary">Купити</button>
+            <button type="button" className="btn btn-lg btn-danger" onClick={(e) =>
+               { if (window.confirm('Ви впевнені, що хочете видалити цей продукт?'))
+               this.setState({loading: true}); this.deleteItem(e) } }>Видалити</button>
           </div>
         </div>
     );
@@ -63,10 +77,8 @@ class App extends React.Component {
           <div className="card-deck mb-3 text-center" style={{ overflow: "hidden" }}>
             {todoItems}
           </div>
-          <React.Fragment>
-            {<Create />}
-          </React.Fragment>
         </div>
+        <Create categories={categoriesSelect} />
       </React.Fragment>
     );
   }
