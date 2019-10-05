@@ -10,11 +10,12 @@ import EclipseWidget from './components/eclipse';
 
 
 class App extends React.Component {
-  state = {
+    state = {
     products: [],
     loading: false,
     categoriesSelect: []
   }
+  //deleteProduct = deleteProduct.bind(this);
 
   componentDidMount() {
     const urlCategories='https://localhost:44330/api/categories';
@@ -39,6 +40,17 @@ class App extends React.Component {
     );
   }
 
+  deleteProduct = (e) => {
+    e.preventDefault();
+    const url = 'https://localhost:44330/api/products';
+    axios.delete(url).then(
+      (resp) => {
+        console.log('-----axios res-----', resp);
+        this.setState({ products: resp.data, loading: false });
+      }
+    );
+}
+
   render() {
     const {loading, categoriesSelect} = this.state;
     console.log("--Reander app state--", this.state);
@@ -60,9 +72,9 @@ class App extends React.Component {
               <img key={product.id} src={product.image} alt="" />
             </p>
             <button type="button" className="btn btn-lg btn-primary">Купити</button>
-            <button type="button" className="btn btn-lg btn-danger" onClick={(e) =>
+            <button type="button" className="btn btn-lg btn-danger" onClick={() =>
                { if (window.confirm('Ви впевнені, що хочете видалити цей продукт?'))
-               this.setState({loading: true}); this.deleteItem(e) } }>Видалити</button>
+               this.deleteProduct(product.id) } }>Видалити</button>
           </div>
         </div>
     );
