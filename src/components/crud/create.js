@@ -40,9 +40,7 @@ class CreateProd extends Component {
     }
 
     render() {
-        //const { categories: categories } = this.state;
         const { categories, loading } = this.state;
-
         const options = categories.map(t =>
             <option key={t.id} value={t.id}>{t.name}</option>
         );
@@ -99,7 +97,7 @@ class CreateProd extends Component {
                             {options}
                         </select>
                         <p></p>
-                        <button type="submit" class="btn btn-primary">Додати</button>
+                        <button type="submit" class="btn btn-md btn-success">Додати</button>
                     </form>
                 </div>
             </React.Fragment>
